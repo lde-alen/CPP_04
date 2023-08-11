@@ -15,6 +15,7 @@ Dog::~Dog(void)
 Dog::Dog(const Dog & copy)
 {
     std::cout << "Dog copy constructor called" << std::endl;
+    _brain = NULL;
     *this = copy;
 }
 
@@ -24,7 +25,9 @@ Dog & Dog::operator=(const Dog & copy)
     if (this != &copy)
     {
         this->_type = copy._type;
-        this->_brain = new Brain(*copy._brain); // should this be a deep or shallow copy???
+        if (_brain)
+            delete _brain;
+        this->_brain = new Brain(*copy._brain);
     }
     return (*this);
 }
